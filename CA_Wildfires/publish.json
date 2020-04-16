@@ -1,8 +1,0 @@
-{
-    "title": "Bi-Variate Map of Wildfires in California",
-    "info": "This bivariate map represents wildfires in California from 2009-2019. The symbol size represents size in acres >= 100 and the colors represent the five most common cause of fire during this time period. The data came from the U.S. Forest Service; FIRESTAT Fire Occurrence - Yearly Update."
-    "coordinates": [38, -84.5],
-    "author": "Zac Stanley",
-    "link": "https://zac-stanley.github.io/CaliforniaWildfires2009-2019/"
-
-}
