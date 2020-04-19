@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>U.S. Rental Prices by County</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <link rel="stylesheet" 
+    href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: whitesmoke;
+      font-family: Lato, sans-serif;
+      color: #0D0000;
+    }
+
+    header {
+      width: 80%;
+      margin: 10px auto 10px auto;
+    }
+
+    h1 {
+      display: inline-block;
+      margin-right: 20px;
+      color: #001323;
+    }
+
+    h2 {
+      display: inline-block;
+      color: #001323;
+      font-weight: bold;
+      font-size: medium;
+    }
+
+    h4 {
+      display: inline-block;
+      color: #001323;
+      font-weight: bolder;
+      font-size: 1em;
+      margin: 0;
+      padding: 0;
+
+    }
+
+    h5 {
+      display: inline-block;
+      color: #001323;
+      font-weight: normal;
+      font-size: 1em;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      width: 80%;
+      height: 540px;
+      margin: 10px 10%;
+      background: whitesmoke;
+      border: 2px solid #dddedf;
+    }
+
+    footer {
+      padding: 6px 10%;
+      width: 80%;
+    }
+
+    p {
+      font-size: 1em;
+      color: #001323;
+    }
+
+    .legend {
+      padding: 6px 8px;
+      font-size: 1em;
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 5px;
+  }
+  .legend h3 {
+      font-size: 1.1em;
+      font-weight: bolder;
+      color: #001323;
+      margin: 0 0 10px 0;
+  }
+  .legend span {
+      width: 20px;
+      height: 20px;
+      float: left;
+      margin: 0 10px 4px 0;
+  }
+  .legend label {
+      font-size: 1.1em;
+  }
+  .legend label:after {
+      content: '';
+      display: block;
+      clear: both;
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Map Title</h1>
+    <h2></h2>
+  </header>
+
+  <div id='map'></div>
+
+  <footer>
+    <h2>Map authored by Zac Stanley</h2>
+    <p>Choropleth map of median rental costs by U.S. County:</p>
+    <p>Map was created using a geoJSON file of average rents for every county in the United States. The state outlines are at a scale of 1:20 million. JavaScript libraries used
+      are Leaflet, Simple Statistics and JQuery.
+    </p>
+  </footer>
+
+  <!-- Load scripts using Subresource Integrity (SRI) is a security feature 
+      that enables browsers to verify that resources they fetch (from a CDN) 
+      are delivered without unexpected manipulation. -->
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  <script 
+    src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+    <script src='https://unpkg.com/simple-statistics@7.0.6/dist/simple-statistics.min.js'>
+    </script>
+
+  <script>
+
+  // set map title
+    $("h1").html("U.S. Rental Prices by County");
+    var attributeRent = "RENT"
+    var countyRent = $.getJSON("data/counties_median_rent_2015.json", function (data) {
+      map.addControl(L.control.zoom({ position: 'topright' }));
+      var dataLayer = L.geoJson(data, {
+        style: function (feature) {
+          return {
+            color: '#444',
+            weight: .5,
+            fillOpacity: 1,
+            fillColor: '#1f78b4'
+          };
+        },
+        // use onEachFeature to to bind the leaflet tooltip
+        onEachFeature: function (feature, layer) {
+          layer.bindTooltip(`<h4>${feature.properties.NAME} County</h4> <br>
+        <h5>average rent: $${feature.properties.RENT}</h5>`);
+        }
+
+      }).addTo(map);
+
+      drawMap(dataLayer);
+
+    });
+
+    function drawMap(dataLayer) {
+
+      var breaks = getClassBreaks(dataLayer);
+
+      drawLegend(breaks);
+
+
+      dataLayer.eachLayer(function (layer) {
+
+        var props = layer.feature.properties;
+
+        layer.setStyle({
+          fillColor: getColor(props[attributeRent], breaks)
+        });
+      });
+    }
+
+    function getClassBreaks(dataLayer) {
+
+      // create empty Array for storing values
+      var values = [];
+
+      // loop through all the counties
+      dataLayer.eachLayer(function (layer) {
+        var props = layer.feature.properties
+        var value = props[attributeRent];
+        if (value || null) {
+          values.push(Number(value));
+        }
+      });
+
+      // determine similar clusters
+      var clusters = ss.ckmeans(values, 6);
+
+      // create an array of the lowest value within each cluster
+      var breaks = clusters.map(function (cluster) {
+        return [cluster[0], cluster.pop()];
+      });
+
+      return breaks; // return Array of class breaks 
+    } // end getClassBreaks function and drawMap()
+
+    function getColor(d, breaks) {
+
+      if (d <= breaks[0][1]) {
+        return '#eff3ff'
+      } else if (d <= breaks[1][1]) {
+        return '#c6dbef'
+      } else if (d <= breaks[2][1]) {
+        return '#9ecae1'
+      } else if (d <= breaks[3][1]) {
+        return '#6baed6'
+      } else if (d <= breaks[4][1]) {
+        return '#3182bd'
+      } else if (d <= breaks[5][1]) {
+        return '#08519c'
+      }
+    }
+
+    function drawLegend(breaks) {
+      // create leaflet control and position
+      var legend = L.control({ position: 'bottomleft' });
+
+      // when added to map
+      legend.onAdd = function () {
+
+        // create a new HTML div element with a class name of "legend"
+        var div = L.DomUtil.create('div', 'legend');
+
+        // first title the legend
+        div.innerHTML = "<h3>" + "Average Rental Price" + "</h3>";
+
+        // loop through array build visual element for each range based on "breaks"
+        for (var i = 0; i < breaks.length; i++) {
+          // determine color color for each break value, including lower rnage
+          var color = getColor(breaks[i][0], breaks);
+
+          // concatenate a <span> tag styled with the color and the range values
+          // of the class and include label with hi and lows in range
+          div.innerHTML +=
+            `<span style="background:${color}"></span>
+          <label>$${(breaks[i][0] * 1).toLocaleString()}&mdash;
+          ${(breaks[i][1] * 1).toLocaleString()}</label>`;
+        }
+
+        // return the div to be added to the map
+        return div;
+      };
+
+      // add the legend to the map
+      legend.addTo(map);
+    }// end drawLegend
+
+    // Tell jQuery to wait until data is loaded before executing a function
+    $.when(countyRent).done(function () {
+      // load, filter, and style the state outline 
+      $.getJSON("data/us_states_20m.geojson", function (data) {
+
+        var stateLayer = L.geoJson(data, {
+          style: function (feature) {
+            return {
+              color: '#222222', // White
+              weight: 1,
+              fillOpacity: 0,
+              interactive: false
+            };
+          }
+        })
+        // Add layer to map!
+        stateLayer.addTo(map)
+      });
+    });
+
+    // set map options
+    var options = {
+      center: [37, -98.56],
+      zoom: 4.1,
+      zoomSnap: .1,
+      zoomControl: false
+    }
+    var map = L.map('map', options);
+  </script>
+  
+  </body>
+  
+  </html>

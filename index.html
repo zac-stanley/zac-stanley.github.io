@@ -16,8 +16,9 @@
     <!-- Font Awesome CSS from CDN -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <!-- Google web font -->
+    <!-- Google web fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
@@ -29,17 +30,17 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Zac Stanley // Cartography Portfolio</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"><h1>Zac Stanley, GISP</h1></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
+              <a class="nav-link js-scroll-trigger" href="#projects"><h1>Projects</h1></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+              <a class="nav-link js-scroll-trigger" href="#about"><h1>About</h1></a>
             </li>
           </ul>
         </div>
@@ -48,79 +49,78 @@
 
     <!-- Welcome Section -->
     <header>
-      <div class="container text-center text-white">
-        <h1>A basic starter template</h1>
-        <p class="lead">Built for you with love by @rgdonohue<br> using <a href="https://getbootstrap.com/">Bootstrap</a> and several starter templates from <a href="https://startbootstrap.com/">Start Bootstrap</a></p>
+      <div class="container text-center text-dark">
+        <h2>Cartography, GIS and Web Map Design</h2>
       </div>
     </header>
 
     <!-- Projects Section -->
-    <section id="projects" class="bg-light">
+    <section id="projects" class="bg-dark">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="col-lg-4 col-sm-6 portfolio-item text-dark">
             <div class="card h-100">
-              <a href="CA_Wildfires/fire_screen.png"><img class="card-img-top" src="CA_Wildfires/fire_thumb.png" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a target="_blank" href="CA_Wildfires">Wildfires in California</a>
+              <a href="images/fire_screen.png"><img class="card-img-top" src="images/fire_thumb.png" alt=""></a>
+              <div class="card-body text-dark bg-light">
+               <h4 class="card-title">
+                  <a target="_blank" href="CA_Wildfires"><h3>Wildfires in California</h3></a>
                 </h4>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+                <p class="card-text text-dark">This bivariate map represents wildfires in California from 2009-2019. The symbol size represents size in acres >= 100 and the colors represent the five most common cause of fire during this time period. The data came from the U.S. Forest Service; FIRESTAT Fire Occurrence - Yearly Update.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6 portfolio-item text-dark">
+            <div class="card h-100">
+              <a href="images/PacificCrestTrail_1200.jpg"><img class="card-img-top" src="images\pct_thumb.png" alt=""></a>
+              <div class="card-body text-dark bg-light">
+                <h4 class="card-title">
+                  <a target="_blank" href="PCT/PacificCrestTrail_8000.jpg"><h3>Pacific Crest Trail Peaks</h3></a>
+                </h4>
+                <p class="card-text text-dark">This map shows the Pacific Crest Trail from Mexico to Canada, and highlights the major mountain peaks along the route. It is overlaid on a geoferenced version of the classic Erwin Raisz Landforms of the United States Map.</p>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="PCT\pct_thumb.png" alt=""></a>
-              <div class="card-body">
+              <a href="images/cyclingroute_screen.png"><img class="card-img-top" src="images/cycling_thumb.png" alt=""></a>
+              <div class="card-body text-dark bg-light">
                 <h4 class="card-title">
-                  <a href="PCT/PacificCrestTrail_8000.jpg">Pacific Crest Trail</a>
+                  <a target="_blank" href="CyclingRoute"><h3>Home <--> Work by Bike</h3></a>
                 </h4>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                <p class="card-text">This map highlights a bike route from my home in Petaluma, CA to my office, 22 miles south in San Rafael, CA. The critical points along the way are my kid's school and a bike shop/watering hole that I sometimes in on my way home on Fridays.</p>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/430x245" alt=""></a>
-              <div class="card-body">
+              <a href="images/uspower_screen.png"><img class="card-img-top" src="images/uspower_thumb.png" alt=""></a>
+              <div class="card-body text-dark bg-light">
                 <h4 class="card-title">
-                  <a href="#">Project Three</a>
+                  <a target="_blank" href="USPower/lab-07-assignment.html"><h3>United States Power Plants</h3></a>
                 </h4>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
+                <p class="card-text">This bivariate map shows power plants in the United States using graduated symbols to show total power capacity in megawatts and color to describe the primary source of power; Nuclear, Coal or Petroleum.</p>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/430x245" alt=""></a>
-              <div class="card-body">
+              <a href="images\Play-Eat-Walk Local!.png"><img class="card-img-top" src="images/eatplaywalk_thumb.png" alt=""></a>
+              <div class="card-body text-dark bg-light">
                 <h4 class="card-title">
-                  <a href="#">Project Four</a>
+                  <a target="_blank" href="EatPlayWalk/Play-Eat-Walk Local!_8000.png"><h3>Eat-Play-Walk Minneapolis!</h3></a>
                 </h4>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                <p class="card-text">Map of Cafe's or Restaraunts within 1-mile of an outdoor recreation site in Minneapolis, MN. The area in the mauve color has more than one cafe' or restaraunt within 1-mile of a recreation site and the area in the golden color has a at least one cafe' or restaraunt within 1-mile of a recreation site. I used purple for amenities as a nod to hometown musical genius, Prince. All data from Open Street Map, 2019. </p>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/430x245" alt=""></a>
-              <div class="card-body">
+              <a href="images/rent_screen.png"><img class="card-img-top" src="images\rent_thumb.png" alt=""></a>
+              <div class="card-body text-dark bg-light">
                 <h4 class="card-title">
-                  <a href="#">Project Five</a>
+                  <a target="_blank" href="USRentalPrices"><h3>Rental Costs - United States</h3></a>
                 </h4>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/430x245" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Project Six</a>
-                </h4>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
+                <p class="card-text">This choropleth map details median rents for every county in the United States.</p>
               </div>
             </div>
           </div>
@@ -135,31 +135,33 @@
           <div class="col-lg-12 mx-auto">
             <h2>About me</h2>
             <div class='my-5 clearfix'>
-              <div class="float-md-left mb-5 mr-md-4"><img class="rounded-circle img-fluid" src="http://placehold.it/200x200" alt=""></div>
-              <p class="lead">I'm Zac Stanley. I'm a Geographer and Cartographer specializing in high quality static cartography and web mapping applications. My area of interest includes mapping trails, invasive species, and a broad array of natural resource monitoring efforts from wildlife cameras to rare plants and native gardens.</p>
-              <p class="lead">When I'm not looking for the perfect complimentary font for a map sub-title, I'm hanging out with my family, riding my bike in Western Sonoma County California, or listening to the hypnotic tenor saxophone of Pharoah Sanders.</p>
+              <div class="float-md-left mb-5 mr-md-4 text-dark"><img class="rounded-circle img-fluid" src="images/profile.jpg" alt=""></div>
+              <h6>I'm Zac Stanley, a geographer and cartographer specializing in high quality static cartography and web mapping applications. My area of interest includes mapping trails, invasive species, and a broad array of natural resource monitoring efforts from wildlife cameras to rare plants and native gardens.</h6>
+              <h6>When I'm not looking for the perfect complimentary font for a map sub-title, I'm hanging out with my family, riding my bike in Western Sonoma County California, or listening to the hypnotic tenor saxophone of Pharoah Sanders.</h6>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 text-dark">
             <h3>Skillz</h3>
             <dl>
-                <dt>GIS</dt>
-                <dd>GISP Certification</dd>
-                <dd>QGIS and ArcGIS Pro for data analysis, manipulation, and, format conversion</dd>
-                <dd>PostGIS/SQL and ArcSDE for data querying</dd>
-                <dt>Web Mapping</dt>
-                <dd>Leaflet, Mapbox and ArcGIS Online for raster tilesets, basic thematic mapping, and telling stories with maps</dd>
-                <dd>JavaScript</dd>
+              <h6><dt>GIS and Cartography</dt></h6>
+                <h5><dd>GISP #90608, April 2020</dd></h5>
+              <h5><dd>QGIS and ArcGIS Pro for data analysis, manipulation, and format conversion</dd></h5>
+              <h5><dd>Adobe Illustrator for production cartography</dd></h5>
+                <h5><dd>PostGIS/SQL and ArcSDE for data querying</dd></h5>
+                <h6><dt>Web Mapping</dt></h6>
+                <h5><dd>Leaflet, Mapbox and ArcGIS Online for raster tilesets, basic thematic mapping, and telling stories with maps</dd></h5>
+                <h6><dt>Coding</dt></h6>
+                <h5><dd>JavaScript, CSS, HTML</dd></h5>
               </dl>
           </div>
           <div class="col-md-6">
               <h3>Get in touch!</h3>
               <ul class="list-unstyled">
-                  <li class=""><i class="fa fa-twitter mr-2"></i><a href="#">@newmapsplus</a></li>
-                  <li class=" mr-2"><i class="fa fa-github mr-2"></i><a href="#">newmapsplus</a></li>
-                  <li class=""><i class="fa fa-envelope mr-2"></i><a href="#">nmp@uky.edu</a></li>
+                  <li class=""><i class="fa fa-twitter mr-2"></i><a target="_blank"href="https://twitter.com/zac_stanley"><h5>@CartoStan</h5></a></li>
+                  <li class=" mr-2"><i class="fa fa-github mr-2"></i><a target="_blank"href="http://zac-stanley.github.io/"><h5>zac-stanley</h5></a></li>
+                  <li class=""><i class="fa fa-envelope mr-2"></i><a href="#"><h5>zac.stanley@gmail.com</h5></a></li>
               </ul>
           </div>
         </div>

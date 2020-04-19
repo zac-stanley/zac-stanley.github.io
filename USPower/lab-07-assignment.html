@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8 />
+	<title>Lab 07 — US Power Plants</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<link rel='icon' href='https://newmapsplus.github.io/favicon.ico' type='image/x-icon' />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,900i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Michroma|Patua+One|Roboto&display=swap" rel="stylesheet"> 
+
+	<style>
+		/* 
+			UKy Colors: 
+            #c7c9c8 light gray 
+            #63666a dark gray
+            #15397f dark blue
+            #009bda light blue
+            #0033a0 official blue
+        */
+		body {
+			margin: 0;
+			padding: 0;
+			background: #ffffff;
+			font-family: 'Lato', sans-serif;
+			font-weight: 300;
+			color: #3d3d3d;
+			font-size: 100%;
+			/* 16px is default browser size */
+
+		}
+
+		header,
+		section,
+		footer {
+			width: 80%;
+			margin: 10px auto;
+		}
+
+		h1 {
+			font-family: 'Michroma', sans-serif;				
+			font-weight: 900;
+			font-size: 2.8em;
+			color: black;
+			font-style: bold;
+			/* The em unit. 3x the current size */
+			letter-spacing: .02em;
+			margin: 5px 0;
+			/* text-transform: uppercase; */
+		}
+
+		h2 {
+			font-family: 'Roboto', sans-serif;
+			color: #000000;
+			font-size: 2.2em;
+			letter-spacing: .06em;
+			font-style: italic;
+			font-weight: bolder;
+			margin: 5px 0;
+		}
+
+		h3 {
+			font-weight: 300i;
+			color: #000000;
+			font-size: 1.5em;
+			margin-bottom: 5px;
+		}
+
+		h4 {
+			font-family: 'Roboto', sans-serif;
+			color: #000000;
+			font-size: 1.2em;
+			letter-spacing: .06em;
+			font-style: italic;
+			font-weight: bolder;
+			margin: 5px 0;
+		}
+
+		p {
+			color: #000000;
+			font-family: 'Roboto', sans-serif;
+			font-weight: lighter;
+			font-size: 1em;
+			line-height: 1.8em;
+			margin-bottom: 5px;
+		}
+
+		a {
+			color: #004A8B;
+			font-weight: 400;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		ul {
+			padding: 0px 20px 4px 20px;
+			font-size: 1.1em;
+			line-height: 1.2em;
+			color: black;
+		}
+
+		li {
+			font-family: 'Roboto', sans-serif;
+			font-size: em;
+			font-weight: lighter;
+			color: #000000;
+			margin: 10px 0
+		}
+
+		hr {
+			margin: 20px 0;
+			border: 0;
+			height: 1px;
+			background: #63666a;
+
+		}
+
+		.linkbox {
+			margin: 3px 0 20px 0;
+			display: block;
+			font-size: 0.9em;
+			font-weight: 300;
+			line-height: 1.3em;
+		}
+
+		#map {
+			width: 100%;
+			height: 450px;
+			margin: 20px auto;
+
+		}
+
+		.max-image-width {
+			width: 100%;
+		}
+
+		/* Use float property to make two-column layout */
+		.first-column {
+			float: left;
+			width: 49%;
+			padding-right: 2%;
+		}
+
+		.column {
+			float: left;
+			width: 49%;
+		}
+
+		/* Clear floats after the columns */
+		.row::after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		/* When browser is 900px wide or less */
+		@media screen and (max-width: 900px) {
+
+			.first-column,
+			.second-column {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>U.S. Power Plants</h1>
+	</header>
+	<section>
+		<div class="row">
+			<div id="map"></div>
+
+			<div class="first-column">
+				<h2>Nuclear, Coal and Petroleum Power</h2>
+				<p>
+					"In 2019, about 4,118 billion kilowatthours (kWh) (or about 4.12 trillion kWh) of electricity were generated at utility-scale electricity generation facilities in the United States. About 63% of this electricity generation was from fossil fuels—coal, natural gas, petroleum, and other gases. About 20% was from nuclear energy"
+					(<a href="https://www.eia.gov/tools/faqs/faq.php?id=427&t=3">U.S. Energy Information Adminstration</a>) <br><br>
+				</p>
+
+				<p><b>Social links</b></p>
+				<ul>
+					<li>See my projects on GitHub: <a href="https://github.com/zac-stanley">Zac Stanley</a></li>
+					<li>Follow me on Twitter: <a href="https://twitter.com/zac_stanley">CartoStan</a></li>
+					<li>Connect on LinkedIn: <a href="https://www.linkedin.com/in/zac-stanley-gisp-a6208022/">Zac Stanley, GISP</a>.
+					</li>
+				</ul>
+
+
+			</div>
+			<div class="column">
+				<img class="max-image-width" src="https://cf-images.us-east-1.prod.boltdns.net/v1/static/5596404784001/d004b7af-4749-4955-bedc-59a336bb8178/882728e8-99ef-44e4-b515-5f4226278ebb/1280x720/match/image.jpg" title="Diablo Canyon Nuclear Plant, Avila Beach, California. Photo Credit - PG&E">
+				<div class="linkbox">
+					Diablo Canyon Nuclear Plant, Avila Beach, California. Photo Credit - PG&E
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<hr>
+
+		<a href="https://newmapsplus.github.io">
+			<img src="https://newmapsplus.github.io/assets/graphics/logo-2018-nmp-75px-h-gray.png" alt="University of Kentucky Geography">
+		</a>
+
+		<a href="https://uky-gis.github.io">
+			<img src="https://newmapsplus.github.io/assets/graphics/logo-2018-geography-75px-h.png" alt="University of Kentucky Geography">
+		</a>
+
+	</footer>
+
+	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+	<script src="data/power-plants.js"></script>
+	<script>
+		// map options
+		var options = {
+				center: [38, -95],
+				zoom: 4
+			}
+
+			// create a Leaflet map in our division container with id of 'map'
+			var map = L.map('map', options);
+
+			// Leaflet providers base map URL
+			var basemap_source =
+				'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/dark_all/{z}/{x}/{y}.png'
+
+			// Leaflet providers attributes
+			var basemap_options = {
+				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+				subdomains: 'abcd',
+				maxZoom: 19
+			};
+
+			// request some basemap tiles and add to the map
+			var tiles = L.tileLayer(basemap_source, basemap_options).addTo(map);
+
+			var commonStyles = {
+				weight: 1,
+				stroke: 1,
+				fillOpacity: .8
+			}
+			// Load nuclear powered plants 
+				var nuclearLayer = L.geoJson(plants, {
+					pointToLayer: function (feature, latlng) {
+						// Draw circle marker based on pointToLayer function
+						return L.circleMarker(latlng, commonStyles);
+					},
+					// filter layer to display only Nuclear powered plants 
+					filter: function (feature) {
+						if (feature.properties.fuel_source.Nuclear) {
+							return feature;
+						}
+					},
+					// style stroke and fill
+					style: function (feature) {
+						return {
+							color: '#FF4000',
+							fillColor: '#FF4000',
+							// call function get radius from plant capacity in megawatts
+							radius: getRadius(feature.properties.capacity_mw)
+						}
+					},
+					onEachFeature: function (feature, layer) {
+						// on mouseover change color to darker shade of orange
+						layer.on('mouseover', function () {
+							layer.setStyle({
+								fillColor: '#401000'
+							});
+						});
+						// return to original fill color when not hovering with mouse
+						layer.on('mouseout', function () {
+							layer.setStyle({
+								fillColor: '#FF4000'
+							});
+						});
+
+						var popup = `<h4>${feature.properties.plant_name}</h4>${layer.feature.properties.capacity_mw} MW`
+
+						// Loop through all fuel sources in plants that split atoms
+						for (var fuelSource in feature.properties.fuel_source) {
+							// View the source
+							console.log(fuelSource)
+							//  Concat all fuel sources 
+							popup += `<br>${fuelSource}: ${feature.properties.fuel_source[fuelSource]} MW`
+						}
+
+						layer.bindPopup(popup)
+					}
+				}).addTo(map);
+
+				// Load petroleum powered plants 
+				var petrolLayer = L.geoJson(plants, {
+					pointToLayer: function (feature, latlng) {
+						// Draw circle marker based on pointToLayer function
+						return L.circleMarker(latlng, commonStyles);
+					},
+					// filter layer to display only Petroleum powered plants 
+					filter: function (feature) {
+						if (feature.properties.fuel_source.Petroleum) {
+							return feature;
+						}
+					},
+					// style stroke and fill
+					style: function (feature) {
+						return {
+							color: '#FFD900',
+							fillColor: '#FFD900',
+							// call function get radius from plant capacity in megawatts
+							radius: getRadius(feature.properties.capacity_mw)
+						}
+					},
+					onEachFeature: function (feature, layer) {
+						// on mouseover change color to darker shade of yellow
+						layer.on('mouseover', function () {
+							layer.setStyle({
+								fillColor: '#806C00'
+							});
+						});
+						// return to original fill color when not hovering with mouse
+						layer.on('mouseout', function () {
+							layer.setStyle({
+								fillColor: '#FFD900'
+							});
+						});
+
+						var popup = `<h4>${feature.properties.plant_name}</h4>${layer.feature.properties.capacity_mw} MW`
+
+						// Loop through all fuel sources in plants that burn Petroleum
+						for (var fuelSource in feature.properties.fuel_source) {
+							// View the source
+							console.log(fuelSource)
+							//  Concat all fuel sources 
+							popup += `<br>${fuelSource}: ${feature.properties.fuel_source[fuelSource]} MW`
+						}
+
+						layer.bindPopup(popup)
+					}
+				}).addTo(map);
+
+				// Load coal powered plants 
+				var coalLayer = L.geoJson(plants, {
+					pointToLayer: function (feature, latlng) {
+						// Draw circle marker based on pointToLayer function
+						return L.circleMarker(latlng, commonStyles);
+					},
+
+					filter: function (feature) {
+						// filter layer to display only Coal powered plants 
+						if (feature.properties.fuel_source.Coal) {
+							return feature;
+						}
+					},
+					// style stroke and fill
+					style: function (feature) {
+						return {
+							color: '#FFFFFF',
+							fillColor: '#FFFFFF',
+							//call function get radius from plant capacity in megawatts
+							radius: getRadius(feature.properties.capacity_mw)
+						}
+					},
+					onEachFeature: function (feature, layer) {
+						layer.on('mouseover', function () {
+							// on mouseover change color to darker shade of white/grey
+							layer.setStyle({
+								fillColor: '#808080'
+							});
+						});
+						// return to original fill color when not hovering with mouse
+						layer.on('mouseout', function () {
+							layer.setStyle({
+								fillColor: '#FFFFFF'
+							});
+						});
+
+						var popup = `<h4>${feature.properties.plant_name}</h4>${layer.feature.properties.capacity_mw} MW`
+
+						// Loop through all fuel sources in plants that burn Coal
+						for (var fuelSource in feature.properties.fuel_source) {
+							// View the source
+							console.log(fuelSource)
+							//  Concat all fuel sources 
+							popup += `<br>${fuelSource}: ${feature.properties.fuel_source[fuelSource]} MW`
+						}
+
+						layer.bindPopup(popup)
+					}
+				}).addTo(map);
+				// getRadius function with area parameter 
+				function getRadius(area) {
+					// using native JavaScript class Math and PI to calculate radius
+					var radius = Math.sqrt(area / Math.PI);
+					// multiplying radius result by arbitrary number appopriate for map
+					return radius * .4;
+				}
+
+</script>
+	
+	</body>
+	
+	</html>

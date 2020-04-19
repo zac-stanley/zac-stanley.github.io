@@ -8,14 +8,47 @@
   font-family: Lato;
 }
 
+h1 {
+  font-family: Poiret One;
+  font-size: smaller;
+}
+
+h2 {
+  font-family: Poiret One;
+  font-weight: bold;
+  font-size: xx-large;
+  
+}
+
+h3 {
+  font-family: Poiret One;
+  font-size: 22px;
+  font-weight: bolder;
+}
+
+h5 {
+    font-family: Roboto;
+    font-size: 14px;
+  }
+
+h6 {
+    font-family: Roboto;
+    font-size: 16px;
+  }
+
 a {
-  color: orange;
+  color: black;
+}
+
+p {
+  font-family: Roboto;
+  font-size: 12px;
 }
 
 header {
   padding: 154px 0 100px;
-  background-color: #448ee4;
-  text-c
+  background-color: #fdf9f9;
+  
 }
 
 /* media query when the media is wider than 992px */
@@ -23,6 +56,7 @@ header {
   header {
     padding: 156px 0 100px;
   }
+
 }
 
 .portfolio-item {
