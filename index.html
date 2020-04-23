@@ -60,12 +60,30 @@
         <div class="row">
           <div class="col-lg-4 col-sm-6 portfolio-item text-dark">
             <div class="card h-100">
-              <a href="images/fire_screen.png"><img class="card-img-top" src="images/fire_thumb.png" alt=""></a>
+              <a href="#" data-toggle="modal" data-target="#wildfire"><img class="card-img-top" src="images/fire_thumb.png" alt=""></a>
               <div class="card-body text-dark bg-light">
                <h4 class="card-title">
                   <a target="_blank" href="CA_Wildfires"><h3>Wildfires in California</h3></a>
                 </h4>
                 <p class="card-text text-dark">This bivariate map represents wildfires in California from 2009-2019. The symbol size represents size in acres >= 100 and the colors represent the five most common cause of fire during this time period. The data came from the U.S. Forest Service; FIRESTAT Fire Occurrence - Yearly Update.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Modal: Wildfires in California -->
+          <div id="wildfire" class="modal fade " role="dialog">
+            <div class="modal-dialog modal-xl">
+              <!-- Modal content-->
+              <div class="modal-content bg-light">
+                <div class="modal-body text-dark">
+                  <img src="images/fire_screen.png" width="100%" class="rounded">
+                  <h3 class="mt-2">Wildfires in California</h3>
+                  <h4 class="card-title">
+                    <a target = "_blank" href="CA_Wildfires">View project</a>
+                  </h4>
+                </div>
+                <div class="modal-footer border-secondary border-0">
+                  <button type="button" class="btn btn-default text-light bg-secondary " data-dismiss="modal">Close</button>
+                </div>
               </div>
             </div>
           </div>
@@ -109,7 +127,7 @@
                 <h4 class="card-title">
                   <a target="_blank" href="EatPlayWalk/Play-Eat-Walk Local!_8000.png"><h3>Eat-Play-Walk Minneapolis!</h3></a>
                 </h4>
-                <p class="card-text">Map of Cafe's or Restaraunts within 1-mile of an outdoor recreation site in Minneapolis, MN. The area in the mauve color has more than one cafe' or restaraunt within 1-mile of a recreation site and the area in the golden color has a at least one cafe' or restaraunt within 1-mile of a recreation site. I used purple for amenities as a nod to hometown musical genius, Prince. All data from Open Street Map, 2019. </p>
+                <p class="card-text">Map of Cafe's or Restaurants within 1-mile of an outdoor recreation site in Minneapolis, MN. The area in the mauve color has more than one cafe' or restaurant within 1-mile of a recreation site and the area in the golden color has a at least one cafe' or rstaurant within 1-mile of a recreation site. I used purple for amenities as a nod to hometown musical genius, Prince. All data from Open Street Map, 2019. </p>
               </div>
             </div>
           </div>
@@ -171,7 +189,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Zac Stanley 2020</p>
       </div>
     </footer>
 
