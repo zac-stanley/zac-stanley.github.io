@@ -1,0 +1,140 @@
+  h1 {
+    color: black;
+    font-family: 'verlag';
+    src: url(Fonts/VerlagBold.otf);
+    font-style: normal;
+    font-weight: bold;
+
+  }
+
+  h1.bobcat {
+    color: #BB952F;
+  }
+
+  h1.coyote {
+    color: #A21E36;
+  }
+
+  h1.greyfox {
+    color: #3A4B56;
+  }
+
+  h3 {
+    color: black;
+    font-family: 'verlag';
+    src: url(Fonts/VerlagBook.otf);
+    font-style: normal;
+    font-weight: normal;
+
+  }
+
+    h4 {
+    color: black;
+    font-family: 'verlag';
+    src: url(Fonts/VerlagBook.otf);
+    font-style: normal;
+    font-weight: normal;
+
+  }
+
+  p {
+    color: black;
+    font-family: 'verlag';
+    src: url(Fonts/VerlagXLight.otf);
+    font-size: 1em;
+    font-style: normal;
+    font-weight: lighter;
+
+  }
+
+  li {
+    color: black;
+    font-family: 'verlag';
+    src: url(Fonts/VerlagXLight.otf);
+    font-size: 1em;
+    font-style: normal;
+    font-weight: lighter;
+
+  }
+
+    #map {
+      background: #448ee4;
+      
+    }
+
+  .legend-large {
+    border-radius: 50%;
+    border-color: #000000 ;
+    border-width: .2em;
+    opacity: .7;
+  }
+
+   .legend-small {
+    border-radius: 50%;
+    border-color: #000000;
+    border-width: .2em;
+    opacity: .7;
+  }
+  
+    hr.small, hr.large {
+    width: 100px;
+    position: absolute;
+    */ top: -8px;
+    left: 60px;
+    background: #000000;
+    opacity: .7;
+    border: 1px dashed #ccc;     /* overwrite assembly.css rule */
+    margin-top: 4px;            /* overwrite assembly.css rule */
+  }
+
+  #info {
+    z-index: 1000;
+  }
+
+  .bobcat {
+    color: #BB952F;
+}
+
+  .coyote {
+    color: #A21E36;
+}
+
+  .greyfox {
+    color: #3A4B56;
+}
+
+  .bg-sidebar {
+    background: #edf4f5;
+    
+}
+
+  .bg-footer {
+    background: #d6e5dd;
+  }
+
+  .bg-info {
+    background: #EDF4F5;
+    
+  }
+
+  .leaflet-bar a {
+    /* Override the default style for Leaflet's zoom  */
+    background: #edf4f5;
+    color:  #222;
+  }
+
+@font-face {
+  font-family: 'verlag';
+  src: url(Fonts/VerlagBold.otf);
+  font-style: normal;
+  font-weight: 100
+}
+
+@font-face {
+  font-family: 'fairplex';
+  src: url(Fonts/FairplexWideOT.otf);
+  font-style: normal;
+  font-weight: 100;
+}
+
+
