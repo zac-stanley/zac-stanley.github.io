@@ -81,12 +81,12 @@
           </div>
         </div>
         <!-- Modal: Wildlife Cameras -->
-        <div id="#wildlifecameras" class="modal fade " role="dialog">
+        <div id="wildlifecameras" class="modal fade " role="dialog">
           <div class="modal-dialog modal-xl">
             <!-- Modal content-->
             <div class="modal-content bg-light">
               <div class="modal-body text-dark">
-                <img src="images/fire_screen.png" width="100%" class="rounded">
+                <img src="images/wild_screen.png" width="100%" class="rounded">
                 <h3 class="mt-2">Wildlife Cameras</h3>
                 <h4 class="card-title">
                   <a target="_blank" href="WildlifeCameras">View project</a>
@@ -110,9 +110,9 @@
                 </a>
               </h4>
               <p class="card-text text-dark">This bivariate map represents wildfires in California from 2009-2019. The
-                symbol size represents size in acres >= 100 and the colors represent the five most common cause of fire
-                during this time period. The data came from the U.S. Forest Service; FIRESTAT Fire Occurrence - Yearly
-                Update.</p>
+              symbol size represents size in acres >= 100 and the colors represent the five most common cause of fire
+              during this time period. The data came from the U.S. Forest Service; FIRESTAT Fire Occurrence - Yearly
+              Update.</p>
             </div>
           </div>
         </div>
@@ -170,7 +170,40 @@
             </div>
           </div>
         </div>
-               <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="col-lg-4 col-sm-6 portfolio-item text-dark">
+          <div class="card h-100">
+            <a href="#" data-toggle="modal" data-target="#openspace"><img class="card-img-top"
+                src="images/OpenSpace_thumb.png" alt=""></a>
+            <div class="card-body text-dark bg-light">
+              <h4 class="card-title">
+                <a target="_blank" href="OpenSpace">
+                  <h3>Open Space in California</h3>
+                </a>
+              </h4>
+              <p class="card-text text-dark">This choropleth map represents percentage of open space by acres in California by managing agency type: Federal, State, County or Land Trust. The data are derived from the California Protected Areas Database (CPAD) </p>
+            </div>
+          </div>
+        </div>
+        <!-- Modal: Open Space in California -->
+        <div id="openspace" class="modal fade " role="dialog">
+          <div class="modal-dialog modal-xl">
+            <!-- Modal content-->
+            <div class="modal-content bg-light">
+              <div class="modal-body text-dark">
+                <img src="images/openspace_screen.png" width="100%" class="rounded">
+                <h3 class="mt-2">Open Space in California</h3>
+                <h4 class="card-title">
+                  <a target="_blank" href="OpenSpace">View project</a>
+                </h4>
+              </div>
+              <div class="modal-footer border-secondary border-0">
+                <button type="button" class="btn btn-default text-light bg-secondary "
+                  data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
             <a href="images/uspower_screen.png"><img class="card-img-top" src="images/uspower_thumb.png" alt=""></a>
             <div class="card-body text-dark bg-light">
@@ -185,24 +218,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="images\Play-Eat-Walk Local!.png"><img class="card-img-top" src="images/eatplaywalk_thumb.png"
-                alt=""></a>
-            <div class="card-body text-dark bg-light">
-              <h4 class="card-title">
-                <a target="_blank" href="EatPlayWalk/Play-Eat-Walk Local!_8000.png">
-                  <h3>Eat-Play-Walk Minneapolis!</h3>
-                </a>
-              </h4>
-              <p class="card-text">Map of Cafe's or Restaurants within 1-mile of an outdoor recreation site in
-                Minneapolis, MN. The area in the mauve color has more than one cafe' or restaurant within 1-mile of a
-                recreation site and the area in the golden color has a at least one cafe' or rstaurant within 1-mile of
-                a recreation site. I used purple for amenities as a nod to hometown musical genius, Prince. All data
-                from Open Street Map, 2019. </p>
-            </div>
-          </div>
-        </div>
+        
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
             <a href="images/rent_screen.png"><img class="card-img-top" src="images\rent_thumb.png" alt=""></a>
@@ -219,7 +235,6 @@
       </div>
     </div>
   </section>
-
   <!-- About Section -->
   <section id="about">
     <div class="container">

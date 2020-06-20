@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Open Space in California - 2019</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- Leaflet CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+		integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+		crossorigin="" />
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Staatliches&display=swap" rel="stylesheet">
+	
+	<style>
+		body {
+			background: #20282e;
+			font-family: 'Staatliches', sans-serif;
+			font-weight: 400;
+		}
+
+		h1 {
+			font-weight: 800;
+		}
+
+		p {
+			font-size: .8rem;
+			line-height: 1.6rem;
+			font-family: 'Merriweather', sans-serif;
+		}
+
+		#map {
+			height: 80vh;
+			background: #20282e;
+		}
+
+		#legend {
+			font-size: 1rem;
+			border-radius: 5px;
+			max-width: 175px;
+			font-family: 'Staatliches', sans-serif;
+		}
+
+		#legend span {
+			width: 20px;
+			height: 20px;
+			float: left;
+			margin: 0 10px 4px 0;
+		}
+
+		#legend label {
+			font-size: 0.8rem;
+			font-family: 'Merriweather', sans-serif;
+		}
+
+		#legend label:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		/* Small devices (landscape phones, 576px and up) */
+		@media (min-width: 576px) {}
+
+		/* Medium devices (tablets, 768px and up) */
+		@media (min-width: 768px) {
+
+			aside {
+				height: 80vh;
+			}
+		}
+
+		/* Large devices (desktops, 992px and up) */
+		@media (min-width: 992px) {}
+
+		/* Extra large devices (large desktops, 1200px and up) */
+		@media (min-width: 1200px) {}
+	</style>
+
+</head>
+
+<body>
+	<div class="container-fluid">
+		<header class="row bg-dark text-white py-3">
+			<div class="col">
+				<h1>Open Space in California - 2019
+					<small class="text-muted">Percentage of Open Space by Managing Agency</small></h1>
+			</div>
+		</header>
+
+		<section class="row">
+			<div class="col-md-8 col-lg-9 col-xl-10 order-md-2 px-0">
+				<div id="map"></div>
+			</div>
+			<aside id="about" class="col-md-4 col-lg-3 col-xl-2 order-md-1 text-white py-2 pl-3 bg-secondary overflow-auto">
+				<section>
+				<!--	<h3 class="py-2">Percentage of Open Space by Managing Agency</h3> -->
+					<p>This map describes counties in California and the percentage in acres of total public open space based on the  managing agency/owner:</p>
+					<ul class="list-unstyled text-white">
+						<li>Federal</a></li>
+						<li>State</li>
+						<li>County</a></li>
+						<li>Land Trust</a></li>
+					</ul>
+					<p>The data are derived from the <a target="_blank" class="text-dark" href="https://www.calands.org/cpad/">California Protected Areas Database</a>. Which contains GIS data about lands that are owned in fee and protected for open space purposes by over 1,000 public agencies or non-profit organizations. The data as mapped here were manipulated in several ways to produce a reasonable choropleth map. Summary statistics were run in QGIS to determine the managing agency type that held the most acreage in four separate classes. Those data were then brought intoe excel and a pivot table was made so that each managing agency had its own field with the total acres by county. That data was then joined to a  <a target="_blank" class="text-dark" href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">cartographic boundary file</a> of California counties and converted to a GeoJson for use in this map.</p>
+				</section>
+			</aside>
+		</section>
+
+		<footer class="row bg-dark text-white py-3">
+			<div class="col">
+				<ul class="list-unstyled">
+					<li>Authored by <a target="_blank" class="text-success" href="https://zac-stanley.github.io">Zac Stanley</a></li>
+					<li>Map Created on April 26, 2020</li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+
+	<!-- legend is outside of container-fluid and will be dynamically added to map -->
+	<div class="bg-secondary py-2 px-3 ml-3 mt-3 text-white" id="legend"></div>
+
+	<!-- ui is outside of container-fluid and will be dynamically added to map -->
+
+
+	<div id="dropdown-ui" class="form-group mr-3 mt-3">
+		<select class="form-control bg-dark text-white">
+			<option value="FederalAgency" selected>Federally Owned</option>
+			<option value="StateAgency">State Owned</option>
+			<option value="CountyAgency">County Owned</option>
+			<option value="NonProfit_LandTrust">Land Trust Owned</option>
+		</select>
+	</div>
+	<!-- end ui-controls -->
+
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS, then leaflet, then simple statistics then your JS! -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+		integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+		crossorigin=""></script>
+	<script src="https://unpkg.com/simple-statistics@7.0.8/dist/simple-statistics.min.js"></script>
+	<script>
+		// initial Leaflet map options
+		const options = {
+			zoomSnap: .11,
+	//		center: [37.38611, -119.44944], 
+	//		zoom: 6,
+			zoomControl: false
+		}
+		// create Leaflet map and apply options
+		const map = L.map('map', options);
+		new L.control.zoom({ position: "bottomright" }).addTo(map)
+
+		// create Leaflet map and apply options
+		//	const map = L.map('map'); //options);
+
+		// request a basemap tile layer and add to the map
+	//	L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	//		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	//	}).addTo(map);
+
+		// set global variables for map layer,
+		// mapped attribute, and normalizing attribute
+		let attributeValue = "FederalAgency";
+		const normValue = "TotalOpenSpace";
+
+		// create object to hold legend titles
+		const labels = {
+			"FederalAgency": "Federally Owned",
+			"StateAgency": "State Owned",
+			"CountyAgency": "County Owned",
+			"NonProfit_LandTrust": "Land Trust Owned"
+		}
+
+		$.getJSON("data/CPAD_Holdings2019ByAgency.json", function (data) {
+			// jQuery method uses AJAX request for the GeoJSON data
+
+			// call drawMap and send data as a parameter
+			drawMap(data);
+		});
+
+
+
+		function drawMap(data) {
+
+			//create leaflet layer and add to map
+			const counties = L.geoJson(data, {
+				// style counties with initial default path options
+				style: function (feature) {
+					return {
+						color: '#20282e',
+						weight: 2,
+						fillOpacity: 1,
+						fillColor: '#1f78b4'
+					};
+				},
+				// add hover/touch functionality to each layer
+				onEachFeature: function (feature, layer) {
+
+					//when mousing over 
+					layer.on('mouseover', function () {
+						// change the stroke color and bring that element to the front
+
+						layer.setStyle({
+							color: '#BA7809'
+						}).bringToFront();
+					});
+
+					// on mousing off layer
+					layer.on('mouseout', function () {
+
+						layer.setStyle({
+							color: '#20282e'
+						});
+					});
+				}
+			}).addTo(map);
+
+			map.fitBounds(counties.getBounds(), {
+				padding: [18, 18] // add padding around counties
+			});
+
+			updateMap(counties); // draw the map
+			addUi(counties); // add the ui controls
+		}
+
+		function updateMap(counties) {
+
+			// get class breaks for the current data attribute, call getClassBreaks function
+			const breaks = getClassBreaks(counties);
+
+			// loop through each county layer to update the color and tooltip info
+			counties.eachLayer(function (layer) {
+
+				const props = layer.feature.properties;
+
+				// set the fill color of the layer based on its normalized data value, call getColor function
+				layer.setStyle({
+					fillColor: getColor(props[attributeValue] / props[normValue], breaks)
+				});
+
+				// assemble string sequence of info for tooltip (end line break with + operator)
+				let tooltipInfo = `<b>${props["NAME"]} County</b></br>
+										${((props[attributeValue] / props[normValue]) * 100).toLocaleString()}%`
+
+				// bind a tooltip	layer with county specific info
+				layer.bindTooltip(tooltipInfo, {
+					// sticky property so tooltip follows the mouse
+					sticky: true
+				});
+			});
+			//add legend control to map
+			addLegend(breaks);
+			//update the legend with the current data attribute information
+			updateLegend(breaks);
+		}
+		// get class breaks in data
+		function getClassBreaks(counties) {
+
+			// create and empty array for storing values
+			const values = [];
+
+			// loop through all the counties
+			counties.eachLayer(function (layer) {
+				let value = layer.feature.properties[attributeValue] / layer.feature.properties[normValue];
+				values.push(value) // push the normalized value into the array
+			});
+
+			// determine similar clusters
+			const clusters = ss.ckmeans(values, 5);
+
+			// create an array of the lowest value within each cluster
+			const breaks = clusters.map(function (cluster) {
+				return [cluster[0], cluster.pop()];
+			});
+
+			// return an array of arrays
+			return breaks;
+		}
+
+		function getColor(d, breaks) {
+			// function accepts a single normalized data attribute value
+			// and uses a series of conditional statements to determine which
+			// which color value to return to return to the function caller
+
+			if (d <= breaks[0][1]) {
+				return '#edf8e9';
+			} else if (d <= breaks[1][1]) {
+				return '#bae4b3';
+			} else if (d <= breaks[2][1]) {
+				return '#74c476';
+			} else if (d <= breaks[3][1]) {
+				return '#31a354'
+			} else if (d <= breaks[4][1]) {
+				return '#006d2c'
+			}
+		}
+
+		// add legend to map
+		function addLegend(breaks) {
+			// create a new leaflet control object, and position it top left
+			const legendControl = L.control({ position: 'topleft' });
+
+			// when the legend is added to the map
+			legendControl.onAdd = function () {
+
+				// select a div element with an id attribute of legend
+				const legend = L.DomUtil.get('legend');
+
+				// disable scroll and click/touch on map when on legend
+				L.DomEvent.disableScrollPropagation(legend);
+				L.DomEvent.disableClickPropagation(legend);
+
+				return legend
+
+			};
+
+			legendControl.addTo(map);
+
+		}
+		// update legend based on selected attribute
+		function updateLegend(breaks) {
+			// select the legend, add a title, begin an unordered list and assign to a variable 
+			const legend = $('#legend').html(`<h5>${labels[attributeValue]}</h5>`)
+
+			// loop through the Array of classification break values
+			for (let i = 0; i <= breaks.length - 1; i++) {
+
+				// assign color variable and call getColor function
+				let color = getColor(breaks[i][0], breaks);
+
+				// explanation of toFixed() method https://www.w3schools.com/jsref/jsref_tofixed.asp
+				legend.append(
+					`<label>
+					<span style="background:${color}"></span>
+					${(breaks[i][0] * 100).toFixed(1)} &mdash;								
+					${(breaks[i][1] * 100).toFixed(1)}%</label><br>`);
+			}
+		}
+
+		function addUi(counties) {
+
+			//create the slider control
+			var selectControl = L.control({ position: "topright" });
+
+			// when control is added 
+			selectControl.onAdd = function () {
+				// get the element with id attribute of ui-controls
+				return L.DomUtil.get("dropdown-ui");
+			};
+
+			$('#dropdown-ui select').change(function () {
+				// code executed here when change event occurs
+				attributeValue = this.value;
+
+				// call the update map function
+				updateMap(counties)
+			});
+
+			// add the control to the map
+			selectControl.addTo(map);
+		}
+	</script>
+</body>
+
+</html>
